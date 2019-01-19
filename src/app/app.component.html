@@ -1,18 +1,1 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div class="board" [style.height]="screenHeight" [style.width]="screenHeight">
-  <mat-grid-list cols="8">
-    <div *ngFor="let row of rows">
-      <mat-grid-tile [style.background-color]="getColor(row,column)" *ngFor="let column of columns"
-                     [class.making-move]="selectedPiece" (click)="onTileClick(row, column)">
-        <fa-icon *ngIf="position[row] && position[row][column]" [icon]="'chess-' + position[row][column].name"
-          [style.color]="position[row][column].color" [style.font-size]="piecesSize" class="piece"
-                 [class.selected]="position[row][column] === selectedPiece"
-        (click)="onPieceClick(position[row][column])"></fa-icon>
-      </mat-grid-tile>
-    </div>
-  </mat-grid-list>
-</div>
-
-<fa-icon icon="chess-rook" class="piece selected" style="color: green; font-size: 50px"></fa-icon>
-
 
