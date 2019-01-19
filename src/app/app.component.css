@@ -1,0 +1,19 @@
+.board {
+  justify-self: center;
+  text-align:center;
+  background-color: cadetblue;
+  padding: 5px;
+}
+.piece {
+  cursor: pointer;
+}
+.piece:hover {
+  transform: scale(1.2);
+}
+.piece.selected {
+  transform: scale(1.3);
+  filter: drop-shadow(2px 2px 2px black);
+}
+.making-move {
+  cursor: pointer;
+}
