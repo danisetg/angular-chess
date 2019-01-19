@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Board} from '../../shared/models/board.model';
 
 @Component({
@@ -62,16 +62,25 @@ export class BoardComponent implements OnInit {
     this.position = [];
     for (let i = 1; i <= 8; i++) {
       this.board.pieces.push({row: 2, column: this.columns[i - 1], eaten: false, color: 'white', name: 'pawn'});
+      this.board.pieces.push({row: 7, column: this.columns[i - 1], eaten: false, color: 'black', name: 'pawn'});
       this.position[i] = [];
     }
     this.board.pieces.push({row: 1, column: 'a', eaten: false, color: 'white', name: 'rook'});
     this.board.pieces.push({row: 1, column: 'h', eaten: false, color: 'white', name: 'rook'});
+    this.board.pieces.push({row: 8, column: 'a', eaten: false, color: 'black', name: 'rook'});
+    this.board.pieces.push({row: 8, column: 'h', eaten: false, color: 'black', name: 'rook'});
     this.board.pieces.push({row: 1, column: 'b', eaten: false, color: 'white', name: 'knight'});
     this.board.pieces.push({row: 1, column: 'g', eaten: false, color: 'white', name: 'knight'});
+    this.board.pieces.push({row: 8, column: 'b', eaten: false, color: 'black', name: 'knight'});
+    this.board.pieces.push({row: 8, column: 'g', eaten: false, color: 'black', name: 'knight'});
     this.board.pieces.push({row: 1, column: 'c', eaten: false, color: 'white', name: 'bishop'});
     this.board.pieces.push({row: 1, column: 'f', eaten: false, color: 'white', name: 'bishop'});
+    this.board.pieces.push({row: 8, column: 'c', eaten: false, color: 'black', name: 'bishop'});
+    this.board.pieces.push({row: 8, column: 'f', eaten: false, color: 'black', name: 'bishop'});
     this.board.pieces.push({row: 1, column: 'd', eaten: false, color: 'white', name: 'queen'});
     this.board.pieces.push({row: 1, column: 'e', eaten: false, color: 'white', name: 'king'});
+    this.board.pieces.push({row: 8, column: 'd', eaten: false, color: 'black', name: 'king'});
+    this.board.pieces.push({row: 8, column: 'e', eaten: false, color: 'black', name: 'king'});
     this.setPosition();
   }
 
