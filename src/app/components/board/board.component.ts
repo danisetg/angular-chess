@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Board} from '../../shared/models/board.model';
+import {MovementRulesService} from '../../shared/services/movement-rules/movement-rules.service';
 
 @Component({
   selector: 'app-board',
@@ -14,7 +15,7 @@ export class BoardComponent implements OnInit {
   rows = [8, 7, 6, 5, 4, 3, 2, 1];
   columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
   position: any[];
-  constructor() { }
+  constructor(private movementRulesService: MovementRulesService) { }
 
   ngOnInit() {
     this.board = new Board();
@@ -35,12 +36,18 @@ export class BoardComponent implements OnInit {
     }
   }
   onTileClick(row, column) {
-    if (this.selectedPiece && (this.selectedPiece.row !== row || this.selectedPiece.column !== column)) {
-      this.position[this.selectedPiece.row][this.selectedPiece.column] = null;
-      this.selectedPiece.row = row;
-      this.selectedPiece.column = column;
-      this.position[row][column] = this.selectedPiece;
-      this.selectedPiece = null;
+    if (this.selectedPiece && (this.selectedPiece.row !== row || this.selectedPiece.column !== column) ) {
+      if (this.movementRulesService.isAvalidMove(this.selectedPiece, row, column, this.position)) {
+        this.position[this.selectedPiece.row][this.selectedPiece.column] = null;
+        this.selectedPiece.row = row;
+        this.selectedPiece.column = column;
+        this.position[row][column] = this.selectedPiece;
+        this.selectedPiece = null;
+      } else if (this.position[row][column] && this.position[row][column].color === this.selectedPiece.color) {
+        this.selectedPiece = this.position[row][column];
+      } else {
+        this.selectedPiece = null;
+      }
     }
   }
   getColor(row, column) {
