@@ -1,0 +1,149 @@
+// Import all the tools needed to customize the theme and extract parts of it
+@import '~@angular/material/theming';
+@import "material-theme";
+
+// Define a mixin that accepts a theme and outputs the color styles for the component.
+@mixin my-app-theme($theme) {
+  // Extract whichever individual palettes you need from the theme.
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+}
+
+.sign-container {
+  text-align: center;
+  margin-top: 150px;
+  .sign-background {
+    position: fixed;
+    margin-top: -250px;
+    width: 100%;
+    height: 100%;
+    opacity: 0.038;
+    //background: url('/assets/img/logo/enkarga-logo-big.png') no-repeat center;
+  }
+  .sign-card {
+    margin: 0 auto;
+    width: 380px;
+  }
+}
+.mat-drawer {
+  background-color: #24292e !important;
+}
+.mat-drawer.mat-drawer-side {
+  background-color: #24292e;
+  color: white;
+  width: 180px;
+}
+
+
+.mat-drawer-content {
+  background-color: rgb(250, 250, 250);
+}
+
+.mat-toolbar {
+  background: #faffff !important;
+}
+
+.mat-list .mat-list-item {
+  color: white !important;
+  font-size: 14px !important;
+  .mat-icon {
+    font-size: 20px;
+    height: 21px;
+  }
+}
+.mat-list .mat-list-item:hover {
+  background-color: #24293b;
+  cursor: pointer;
+}
+
+.sidenav-submenu {
+  padding-left: 20px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  height: 20px !important;
+}
+
+.sidenav-header {
+  display: inline-flex;
+  vertical-align: middle;
+  padding: 20px;
+  .mat-icon {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  .mat-icon:hover {
+    background-color: #ffffe2;
+    border-radius: 50%;
+    border-width: 5px;
+  }
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.mat-icon {
+  align-self: center;
+}
+
+.page-container {
+  margin: 20px;
+}
+
+.input-form {
+  margin: 20px;
+}
+
+.form-buttons-container {
+  margin: 25px;
+}
+.form-button {
+  margin: 5px !important;
+  .mat-spinner {
+    float: left;
+    margin-top: 7px;
+    margin-right: 4px;
+  }
+}
+.action-column {
+  mat-icon {
+    cursor: pointer;
+  }
+  mat-icon:hover {
+    background-color: rgb(150, 150, 150);
+    border-radius: 50%;
+  }
+}
+
+.validation-text {
+  position: absolute;
+  margin-top: 10px;
+  color: mat-color($app-warn);
+}
+
+.mat-row, .mat-header-row {
+  min-width: 700px; //PERSONALLY I HAD 45 COLUMNS
+}
+.mat-header-row { //THIS MAKES THE HEADER STICKY
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1;
+  background-color: inherit;
+}
+.mat-table { //OR WHATEVER YOU CALL THE mat-table
+  overflow: auto;
+}
+.display-inline {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.map {
+  height: 100%;
+  padding: 0;
+}

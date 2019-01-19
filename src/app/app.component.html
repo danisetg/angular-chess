@@ -1,1 +1,27 @@
-
+<mat-toolbar>
+  <div class="row sidenav-header">
+    <span color="primary">DANIWEBS</span>
+    <mat-icon (click)="toggleSideNav()" color="primary">menu</mat-icon>
+  </div>
+</mat-toolbar>
+<mat-sidenav-container [style.height]="screenHeigth">
+  <mat-sidenav #sidenav [opened]="sidenavOpened" [mode]="sidenavMode" position="start">
+    <mat-list>
+      <div *ngFor="let menu of sideMenu">
+        <mat-list-item (click)="onMenuClick(menu)">
+          <mat-icon>{{menu.icon}}</mat-icon>
+          {{menu.title}}
+          <mat-icon *ngIf="menu.sub && !menu.opened">chevron_right</mat-icon>
+          <mat-icon *ngIf="menu.sub && menu.opened">expand_more</mat-icon>
+        </mat-list-item>
+        <div *ngIf="menu.sub && menu.opened">
+          <mat-list-item class="sidenav-submenu" *ngFor="let submenu of menu.sub" (click)="onMenuClick(submenu)">
+            <mat-icon>{{submenu.icon}}</mat-icon>
+            {{submenu.title}}
+          </mat-list-item>
+        </div>
+      </div>
+    </mat-list>
+  </mat-sidenav>
+  <router-outlet></router-outlet>
+</mat-sidenav-container>

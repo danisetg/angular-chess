@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Board} from '../../../shared/models/board.model';
+import {Board} from '../../shared/models/board.model';
 
 @Component({
   selector: 'app-board',
@@ -21,11 +21,11 @@ export class BoardComponent implements OnInit {
     this.board = new Board();
     this.board.pieces = [];
     this.setInitialPosition();
-    this.screenHeight = (window.innerHeight - 50) + 'px';
-    this.piecesSize = ((window.innerHeight - 50) / 10) + 'px';
+    this.screenHeight = (window.innerHeight / 1.4 ) + 'px';
+    this.piecesSize = ((window.innerHeight / 1.4 ) / 10) + 'px';
     window.onresize = () => {
-      this.screenHeight = (window.innerHeight - 50) + 'px';
-      this.piecesSize = ((window.innerHeight - 50) / 10) + 'px';
+      this.screenHeight = (window.innerHeight / 1.4 ) + 'px';
+      this.piecesSize = ((window.innerHeight / 1.4 ) / 10) + 'px';
     };
   }
   onPieceClick(piece) {
