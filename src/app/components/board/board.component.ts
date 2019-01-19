@@ -14,7 +14,6 @@ export class BoardComponent implements OnInit {
   rows = [8, 7, 6, 5, 4, 3, 2, 1];
   columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
   position: any[];
-  tiles: any[];
   constructor() { }
 
   ngOnInit() {

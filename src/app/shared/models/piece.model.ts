@@ -3,7 +3,7 @@ import {Board} from './board.model';
 export class Piece {
   constructor(
     public id?: number,
-    public name?: string,
+    public name?: 'pawn' | 'rook' | 'bishop' | 'knight' | 'queen' | 'king',
     public row?: number,
     public column?: string,
     public eaten?: boolean,
