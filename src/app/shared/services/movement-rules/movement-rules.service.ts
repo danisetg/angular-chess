@@ -18,6 +18,8 @@ export class MovementRulesService {
         return this.isAvalidKnightMove(piece, destinationRow, destinationColumn, position);
       case 'rook':
         return this.isAvalidRookMove(piece, destinationRow, destinationColumn, position);
+      case 'bishop':
+        return this.isAvalidBishopMove(piece, destinationRow, destinationColumn, position);
     }
     return false;
   }
@@ -70,12 +72,10 @@ export class MovementRulesService {
   private isAvalidBishopMove (piece: Piece, destinationRow: number, destinationColumn: string, position: any[]): boolean {
     if (position[destinationRow][destinationColumn] && position[destinationRow][destinationColumn].color === piece.color) {
       return false;
-    } else if (destinationRow !== piece.row && destinationColumn !== piece.column) {
+    } else if (Math.abs(destinationRow - piece.row) !== this.columnsDifference(destinationColumn, piece.column)) {
       return false;
-    } else if (piece.row === destinationRow) {
-      return this.isRowPathEmpty(piece.row, piece.column, destinationColumn, position);
     } else {
-      return this.isColumnPathEmpty(piece.column, piece.row, destinationRow, position);
+      return this.isDiagonalPathEmpty(piece.row, piece.column, destinationRow, destinationColumn, position);
     }
   }
   isColumnPathEmpty(column: string, initialRow: number, finalRow: number, position) {
@@ -99,6 +99,17 @@ export class MovementRulesService {
     }
     for (let i = this.columns.indexOf(initialColumn) + 1; i < this.columns.indexOf(finalColumn); i++) {
       if (position[row][this.columns[i]]) {
+        return false;
+      }
+    }
+    return true;
+  }
+  isDiagonalPathEmpty(initialRow: number, initialColumn: string, finalRow: number, finalColumn: string, position) {
+    const rowIncr = initialRow < finalRow ? 1 : -1;
+    const colIncr = this.columns.indexOf(initialColumn) < this.columns.indexOf(finalColumn) ? 1 : -1;
+    for (let i = initialRow + rowIncr,  h = this.columns.indexOf(initialColumn) + colIncr; i !== finalRow; i += rowIncr, h += colIncr) {
+      console.log(i, this.columns[h], position[i][this.columns[h]])
+      if (position[i][this.columns[h]]) {
         return false;
       }
     }
