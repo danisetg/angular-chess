@@ -47,6 +47,9 @@ export class BoardComponent implements OnInit {
           this.position[row][column] = this.selectedPiece;
           this.selectedPiece = null;
           this.changeTurn();
+          if (this.movementRulesService.isCheckMate(this.board.turn, this.position)) {
+            console.log('Check Mate!!!!!!!!');
+          }
       } else if (this.position[row][column] && this.position[row][column].color === this.selectedPiece.color) {
         this.selectedPiece = this.position[row][column];
       } else {

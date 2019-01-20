@@ -65,7 +65,6 @@ export class MovementRulesService {
     for (let i = 1; i <= 8; i++) {
       for (let h = 1; h <= 8; h++) {
         if (newPosition[i][this.columns[h]] && newPosition[i][this.columns[h]].color !== piece.color ) {
-          console.log(newPosition[i][this.columns[h]], kingRow, kingColumn, this.isAvalidMove(newPosition[i][this.columns[h]], kingRow, kingColumn, newPosition) );
           if (this.isAvalidMove(newPosition[i][this.columns[h]], kingRow, kingColumn, newPosition)) {
             return true;
           }
@@ -181,5 +180,26 @@ export class MovementRulesService {
   }
   columnsDifference(col1: string, col2: string): number {
     return Math.abs(this.columns.indexOf(col1) - this.columns.indexOf(col2));
+  }
+  isCheckMate(turn: string, position: any[]) {
+    for ( let i = 1; i <= 8; i++) {
+      for (let h = 1; h <= 8; h++) {
+        const piece = position[i][this.columns[h]];
+        if (piece && piece.color === turn && this.anyValidMove(piece, position)) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+  anyValidMove(piece, position) {
+    for (let i = 1; i <= 8; i++) {
+      for (let h = 1; h <= 8; h++) {
+        if (this.isAvalidMove(piece, i, this.columns[h], position) && !this.isKingBeingAttacked(piece, i, this.columns[h], position)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }
