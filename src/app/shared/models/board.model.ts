@@ -6,4 +6,5 @@ export class Board {
   public whiteUser: User;
   public blackUser: User;
   public pieces: Piece[];
+  public turn: 'white' | 'black';
 }

@@ -29,10 +29,12 @@ export class BoardComponent implements OnInit {
     };
   }
   onPieceClick(piece) {
-    if (this.selectedPiece && this.selectedPiece === piece) {
-      this.selectedPiece = null;
-    } else if (!this.selectedPiece) {
-      this.selectedPiece = piece;
+    if (this.board.turn === piece.color) {
+      if (this.selectedPiece && this.selectedPiece === piece) {
+        this.selectedPiece = null;
+      } else if (!this.selectedPiece) {
+        this.selectedPiece = piece;
+      }
     }
   }
   onTileClick(row, column) {
@@ -44,6 +46,7 @@ export class BoardComponent implements OnInit {
           this.selectedPiece.column = column;
           this.position[row][column] = this.selectedPiece;
           this.selectedPiece = null;
+          this.changeTurn();
       } else if (this.position[row][column] && this.position[row][column].color === this.selectedPiece.color) {
         this.selectedPiece = this.position[row][column];
       } else {
@@ -89,7 +92,14 @@ export class BoardComponent implements OnInit {
     this.board.pieces.push({row: 1, column: 'e', eaten: false, color: 'white', name: 'king'});
     this.board.pieces.push({row: 8, column: 'd', eaten: false, color: 'black', name: 'queen'});
     this.board.pieces.push({row: 8, column: 'e', eaten: false, color: 'black', name: 'king'});
+    this.board.turn = 'white';
     this.setPosition();
   }
-
+  changeTurn() {
+    if (this.board.turn === 'white') {
+      this.board.turn = 'black';
+    } else {
+      this.board.turn = 'white';
+    }
+  }
 }

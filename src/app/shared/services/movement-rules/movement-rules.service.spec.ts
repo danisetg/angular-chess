@@ -1,5 +1,5 @@
 import { TestBed, inject } from '@angular/core/testing';
-
+import {} from 'jasmine';
 import { MovementRulesService } from './movement-rules.service';
 
 describe('MovementRulesService', () => {
