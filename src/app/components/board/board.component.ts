@@ -86,7 +86,7 @@ export class BoardComponent implements OnInit {
     this.board.pieces.push({row: 8, column: 'f', eaten: false, color: 'black', name: 'bishop'});
     this.board.pieces.push({row: 1, column: 'd', eaten: false, color: 'white', name: 'queen'});
     this.board.pieces.push({row: 1, column: 'e', eaten: false, color: 'white', name: 'king'});
-    this.board.pieces.push({row: 8, column: 'd', eaten: false, color: 'black', name: 'king'});
+    this.board.pieces.push({row: 8, column: 'd', eaten: false, color: 'black', name: 'queen'});
     this.board.pieces.push({row: 8, column: 'e', eaten: false, color: 'black', name: 'king'});
     this.setPosition();
   }

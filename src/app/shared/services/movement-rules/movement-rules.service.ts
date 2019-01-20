@@ -16,6 +16,8 @@ export class MovementRulesService {
         return this.isAvalidPawnMove(piece, destinationRow, destinationColumn, position);
       case 'knight':
         return this.isAvalidKnightMove(piece, destinationRow, destinationColumn, position);
+      case 'rook':
+        return this.isAvalidRookMove(piece, destinationRow, destinationColumn, position);
     }
     return false;
   }
@@ -53,6 +55,54 @@ export class MovementRulesService {
       }
       return false;
     }
+  }
+  private isAvalidRookMove (piece: Piece, destinationRow: number, destinationColumn: string, position: any[]): boolean {
+    if (position[destinationRow][destinationColumn] && position[destinationRow][destinationColumn].color === piece.color) {
+      return false;
+    } else if (destinationRow !== piece.row && destinationColumn !== piece.column) {
+      return false;
+    } else if (piece.row === destinationRow) {
+      return this.isRowPathEmpty(piece.row, piece.column, destinationColumn, position);
+    } else {
+      return this.isColumnPathEmpty(piece.column, piece.row, destinationRow, position);
+    }
+  }
+  private isAvalidBishopMove (piece: Piece, destinationRow: number, destinationColumn: string, position: any[]): boolean {
+    if (position[destinationRow][destinationColumn] && position[destinationRow][destinationColumn].color === piece.color) {
+      return false;
+    } else if (destinationRow !== piece.row && destinationColumn !== piece.column) {
+      return false;
+    } else if (piece.row === destinationRow) {
+      return this.isRowPathEmpty(piece.row, piece.column, destinationColumn, position);
+    } else {
+      return this.isColumnPathEmpty(piece.column, piece.row, destinationRow, position);
+    }
+  }
+  isColumnPathEmpty(column: string, initialRow: number, finalRow: number, position) {
+      if (initialRow > finalRow) {
+        const tmp = initialRow;
+        initialRow = finalRow;
+        finalRow = tmp;
+      }
+      for (let i = initialRow + 1; i < finalRow; i++) {
+        if (position[i][column]) {
+          return false;
+        }
+      }
+      return true;
+  }
+  isRowPathEmpty(row: number, initialColumn: string, finalColumn: string, position) {
+    if (this.columns.indexOf(initialColumn) > this.columns.indexOf(finalColumn)) {
+      const tmp = initialColumn;
+      initialColumn = finalColumn;
+      finalColumn = tmp;
+    }
+    for (let i = this.columns.indexOf(initialColumn) + 1; i < this.columns.indexOf(finalColumn); i++) {
+      if (position[row][this.columns[i]]) {
+        return false;
+      }
+    }
+    return true;
   }
   columnsDifference(col1: string, col2: string): number {
     return Math.abs(this.columns.indexOf(col1) - this.columns.indexOf(col2));
