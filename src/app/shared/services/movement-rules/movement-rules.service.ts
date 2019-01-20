@@ -20,6 +20,8 @@ export class MovementRulesService {
         return this.isAvalidRookMove(piece, destinationRow, destinationColumn, position);
       case 'bishop':
         return this.isAvalidBishopMove(piece, destinationRow, destinationColumn, position);
+      case 'queen':
+        return this.isAvalidQueenMove(piece, destinationRow, destinationColumn, position);
     }
     return false;
   }
@@ -77,6 +79,10 @@ export class MovementRulesService {
     } else {
       return this.isDiagonalPathEmpty(piece.row, piece.column, destinationRow, destinationColumn, position);
     }
+  }
+  private isAvalidQueenMove (piece: Piece, destinationRow: number, destinationColumn: string, position: any[]): boolean {
+     return this.isAvalidRookMove(piece, destinationRow, destinationColumn, position) ||
+       this.isAvalidBishopMove(piece, destinationRow, destinationColumn, position);
   }
   isColumnPathEmpty(column: string, initialRow: number, finalRow: number, position) {
       if (initialRow > finalRow) {
