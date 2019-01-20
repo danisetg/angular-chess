@@ -27,11 +27,57 @@ export class MovementRulesService {
     }
     return false;
   }
+  isKingBeingAttacked(piece, destinationRow, destinationColumn, position) {
+    const newPosition = [];
+    let kingRow = 1;
+    let kingColumn = 'a';
+    for (let i = 1; i <= 8; i++) {
+      newPosition[i] = [];
+      for (let h = 0; h < 8; h++) {
+        if (position[i][this.columns[h]]) {
+          newPosition[i][this.columns[h]] = {
+            name: position[i][this.columns[h]].name,
+            color: position[i][this.columns[h]].color,
+            row: position[i][this.columns[h]].row,
+            column: position[i][this.columns[h]].column,
+          };
+        }
+        if (position[i][this.columns[h]] && position[i][this.columns[h]].name === 'king' &&
+          position[i][this.columns[h]].color === piece.color) {
+          kingRow = i;
+          kingColumn = this.columns[h];
+        }
+      }
+    }
+    newPosition[destinationRow][destinationColumn] = {
+      name: piece.name,
+      color: piece.color,
+      row: piece.row,
+      column: piece.column,
+    };
+    if (newPosition[destinationRow][destinationColumn].name === 'king') {
+      kingRow = destinationRow;
+      kingColumn = destinationColumn;
+    }
+    newPosition[piece.row][piece.column] = null;
+    newPosition[destinationRow][destinationColumn].row = destinationRow;
+    newPosition[destinationRow][destinationColumn].column = destinationColumn;
+    for (let i = 1; i <= 8; i++) {
+      for (let h = 1; h <= 8; h++) {
+        if (newPosition[i][this.columns[h]] && newPosition[i][this.columns[h]].color !== piece.color ) {
+          console.log(newPosition[i][this.columns[h]], kingRow, kingColumn, this.isAvalidMove(newPosition[i][this.columns[h]], kingRow, kingColumn, newPosition) );
+          if (this.isAvalidMove(newPosition[i][this.columns[h]], kingRow, kingColumn, newPosition)) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
 
   private isAvalidPawnMove(piece: Piece, destinationRow: number, destinationColumn: string, position: any[]): boolean {
     const validDifference = piece.color === 'white' ? 1 : -1;
     const initialRow = piece.color === 'white' ? 2 : 7;
-    console.log(validDifference, initialRow, piece, destinationRow, destinationColumn);
     if (destinationRow - piece.row === validDifference) {
       if (destinationColumn === piece.column && !position[destinationRow][destinationColumn]) {
         return true;
@@ -127,7 +173,6 @@ export class MovementRulesService {
     const rowIncr = initialRow < finalRow ? 1 : -1;
     const colIncr = this.columns.indexOf(initialColumn) < this.columns.indexOf(finalColumn) ? 1 : -1;
     for (let i = initialRow + rowIncr,  h = this.columns.indexOf(initialColumn) + colIncr; i !== finalRow; i += rowIncr, h += colIncr) {
-      console.log(i, this.columns[h], position[i][this.columns[h]])
       if (position[i][this.columns[h]]) {
         return false;
       }

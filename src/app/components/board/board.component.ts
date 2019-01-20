@@ -37,12 +37,13 @@ export class BoardComponent implements OnInit {
   }
   onTileClick(row, column) {
     if (this.selectedPiece && (this.selectedPiece.row !== row || this.selectedPiece.column !== column) ) {
-      if (this.movementRulesService.isAvalidMove(this.selectedPiece, row, column, this.position)) {
-        this.position[this.selectedPiece.row][this.selectedPiece.column] = null;
-        this.selectedPiece.row = row;
-        this.selectedPiece.column = column;
-        this.position[row][column] = this.selectedPiece;
-        this.selectedPiece = null;
+      if (this.movementRulesService.isAvalidMove(this.selectedPiece, row, column, this.position) &&
+        !this.movementRulesService.isKingBeingAttacked(this.selectedPiece, row, column, this.position)) {
+          this.position[this.selectedPiece.row][this.selectedPiece.column] = null;
+          this.selectedPiece.row = row;
+          this.selectedPiece.column = column;
+          this.position[row][column] = this.selectedPiece;
+          this.selectedPiece = null;
       } else if (this.position[row][column] && this.position[row][column].color === this.selectedPiece.color) {
         this.selectedPiece = this.position[row][column];
       } else {
