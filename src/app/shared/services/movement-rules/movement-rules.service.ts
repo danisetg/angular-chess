@@ -84,6 +84,10 @@ export class MovementRulesService {
      return this.isAvalidRookMove(piece, destinationRow, destinationColumn, position) ||
        this.isAvalidBishopMove(piece, destinationRow, destinationColumn, position);
   }
+  private isAvalidKingMove (piece: Piece, destinationRow: number, destinationColumn: string, position: any[]): boolean {
+    return this.isAvalidRookMove(piece, destinationRow, destinationColumn, position) ||
+      this.isAvalidBishopMove(piece, destinationRow, destinationColumn, position);
+  }
   isColumnPathEmpty(column: string, initialRow: number, finalRow: number, position) {
       if (initialRow > finalRow) {
         const tmp = initialRow;
