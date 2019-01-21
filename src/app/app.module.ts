@@ -9,11 +9,13 @@ import {MatGridListModule, MatIconModule, MatListModule, MatSidenavModule, MatTo
 import { BoardComponent } from './components/board/board.component';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ClockComponent } from './components/clock/clock.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardComponent,
+    ClockComponent,
   ],
   imports: [
     AppRoutingModule,
